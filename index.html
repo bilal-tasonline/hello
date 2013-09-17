@@ -3,30 +3,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
  
 <html xmlns="http://www.w3.org/1999/xhtml" >
-<head id="Head1"><meta http-equiv="X-UA-Compatible" content="IE=8" /><link rel="stylesheet" href="reset.css" type="text/css" /><link rel="stylesheet" href="forms.css" type="text/css" /><link rel="stylesheet" href="default.css" type="text/css" />
- 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js" type="text/javascript"></script>
-<script src="http://cdn.jquerytools.org/1.2.5/tiny/jquery.tools.min.js" type="text/javascript"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/jquery-ui.min.js" type="text/javascript"></script>
- 
-<script language="JavaScript" src="default.js" type="text/javascript"></script>
+<head id="Head1"><meta http-equiv="X-UA-Compatible" content="IE=8" />
  
 <title>
 	Aquatec Online Login
 </title>
  
 <script language="javascript" type="text/javascript"> 
-function showPleaseWait()
-{
-document.getElementById('divWaitMessage').style.display = 'block';
-}
- 
-function ShowMessage()
-{
-      alert('All selections to be confirmed by the factory\nSoftware used at own risk, to be used as a reference only');
-      window.location.href='setfilter.aspx';
-}
- 
 var a = Math.ceil(Math.random() * 10);
 var b = Math.ceil(Math.random() * 10);       
 var c = a + b
@@ -63,76 +46,7 @@ function IsFormComplete()
 <body style="background-color: #FFFFFF">
 <br /><br />
  
-<form name="form1" method="post" action="Register.aspx" onsubmit="javascript:return WebForm_OnSubmit();" id="form1" dir="ltr" target="_self">
-<div>
-<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
-<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
-<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJODgyNDAyNjQxD2QWAgIDD2QWAgIjDxBkEBUBD1NBTSBFTkdJTkVFUklORxUBD1NBTSBFTkdJTkVFUklORxQrAwFnZGRkSJOBDHviFtdMoV3EWYIw4ntxzRo=" />
-</div>
- 
-<script type="text/javascript"> 
-//<![CDATA[
-var theForm = document.forms['form1'];
-if (!theForm) {
-    theForm = document.form1;
-}
-function __doPostBack(eventTarget, eventArgument) {
-    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
-        theForm.__EVENTTARGET.value = eventTarget;
-        theForm.__EVENTARGUMENT.value = eventArgument;
-        theForm.submit();
-    }
-}
-//]]>
-</script>
- 
- 
-<script src="/WebResource.axd?d=2bvoIekbuMi9vOLOGyqj-w2&amp;t=635068145012596034" type="text/javascript"></script>
- 
- 
-<script src="/ScriptResource.axd?d=6P0JR4Ia5zAxy-Hc6kuR2E5b9Xv7TWkHPxYwFDzAMAsER3Crdj_-u7Zz8nH-yHbi-0ChFbxuj1swyS8Rdcz_Ug2&amp;t=ffffffffff76dffb" type="text/javascript"></script>
-<script src="/ScriptResource.axd?d=1HXzDwBmyyow3_zizr-vZT6od4Uhvg0iWq-cieVpxK_aNiOcI1Q6pc6s2jsZh_dNwfF31dBXwM_5njbzJ4lDqgRLuk06Ne_kVDh3W77fGFs1&amp;t=6849f02c" type="text/javascript"></script>
-<script type="text/javascript"> 
-//<![CDATA[
-if (typeof(Sys) === 'undefined') throw new Error('ASP.NET Ajax client-side framework failed to load.');
-//]]>
-</script>
- 
-<script src="/ScriptResource.axd?d=1HXzDwBmyyow3_zizr-vZT6od4Uhvg0iWq-cieVpxK_aNiOcI1Q6pc6s2jsZh_dNd1s8mCKgCmgEnuLsR4h-QKP0dHV-dYZPiNNLB5pZ_d1IF7_vHDKo1EoQeGJxi5w10&amp;t=6849f02c" type="text/javascript"></script>
-<script type="text/javascript"> 
-//<![CDATA[
-function WebForm_OnSubmit() {
-if (typeof(ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false) return false;
-return true;
-}
-//]]>
-</script>
- 
-<div>
- 
-	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBwLntKCBCwKPxJrCDwLazNDaAQKE8/26DAKL+4qxCwLBmdgIAsfJ+ecCJPfKt6NpLyNGetOqiDaRKOx6Xuk=" />
-</div>
-<script type="text/javascript"> 
-//<![CDATA[
-Sys.WebForms.PageRequestManager._initialize('ScriptManager2', document.getElementById('form1'));
-Sys.WebForms.PageRequestManager.getInstance()._updateControls([], [], [], 90);
-//]]>
-</script>
- 
-<div id="ValidationSummary1" style="color:Red;background-color:#FFFFCC;font-size:X-Small;display:none;">
- 
-</div>
- 
-<div id="liquid-round"><!--used for left side img -->
- 
-    <div class="top"><!-- used for top img and TL corner-->
-    <span class='rhslogin'><!-- used for RT img --></span>
-    </div>
-    
-    <div class="center-content">
-            <center>
-            <img src="images/TAS_PM_Header.gif" alt="TASOnline Header"/>
-            <br /><br />
+<form name="form1" method="post" action="index.html" id="form1" dir="ltr" target="_self">
  
             <span id="Label3" style="color:#0033CC;font-size:Small;font-weight:bold;">User Registration</span><br /><br />        
             
@@ -145,169 +59,13 @@ Sys.WebForms.PageRequestManager.getInstance()._updateControls([], [], [], 90);
             </td></tr>
             </table><br /><br />
             
-            <table>
-            <tr>
-            <td>
-            <span id="Label1" style="color:Black;font-size:Small;font-weight:bold;">Company Name</span>
-            </td>
-            <td>
-            <input name="txtCompanyName" type="text" id="txtCompanyName" class="wider2" />
-            <span id="reqvCompanyName" style="color:Red;visibility:hidden;">*</span>
-            </td>
-            </tr>
-            <tr>
-            <td>
-            <span id="Label4" style="color:Black;font-size:Small;font-weight:bold;">Contact Name</span>
-            </td>
-            <td>
-            <input name="txtContactName" type="text" id="txtContactName" class="wider2" />
-            <span id="reqvContactName" style="color:Red;visibility:hidden;">*</span>
-            </td>
-            </tr>
-            <tr>
-            <td>
-            <span id="Label2" style="color:Black;font-size:Small;font-weight:bold;">Email Address</span>
-            </td>
-            <td>
-            <input name="txtEmail" type="text" id="txtEmail" class="wider2" />
-            <span id="reqvEmail" style="color:Red;visibility:hidden;">*</span>
-            </td>
-            </tr>
-            <tr>
-            <td>
-            <span id="Label5" style="color:Black;font-size:Small;font-weight:bold;">Telephone No.</span>
-            </td>
-            <td>
-            <input name="txtTel" type="text" id="txtTel" class="wider2" />
-            <span id="reqvTel" style="color:Red;visibility:hidden;">*</span>
-            </td>
-            </tr>
-            <tr>
-            <td>
-            <span id="Label6" style="color:Black;font-size:Small;font-weight:bold;">Supplier info</span>
-            </td>
-            <td>
-            <select name="ddlSupplier" id="ddlSupplier" onchange="Page_BlockSubmit = false;" style="width:200px;">
-	<option value="SAM ENGINEERING">SAM ENGINEERING</option>
- 
-</select>
-            <span id="reqvSupplier" style="color:Red;visibility:hidden;">*</span>
- 
- 
-            </td>
-            </tr>
-            </table>
             <br /><br />
-            <a id="btLogin" class="button3" onmouseup="IsFormComplete()" href="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;btLogin&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, true))"><span>Submit Info</span></a>               
+            <a id="btLogin" class="button3" onmouseup="IsFormComplete()"><span>Submit Info</span></a>               
  
             <br /> 
             <br /><br /><br />
             </center>
-            
-            <div id="divWaitMessage" style="display: none; text-align:right; color:White; vertical-align:top;">
-            <center>
-            <img src="images/loader.gif" alt="progressBar" />
-            <br />
-            <p><font color="#000000"><b>Please Wait ...</b></font></p>
-            </center>
-            </div>
-      
-    </div>
-    
-    <div class="bottom"><span></span></div><!-- holds bottom and BL img. SPAN holds BR img -->
-</div>
- 
-<div id='liquid_foot'>
-  <p>Powered by Aquatec. &copy; 2012 <span><span id="txtAOLVerNo"></span><span id="txtVerNoDLL"></span></span></p>
-</div>
- 
- 
- 
- 
-<script type="text/javascript"> 
-//<![CDATA[
-var Page_ValidationSummaries =  new Array(document.getElementById("ValidationSummary1"));
-var Page_Validators =  new Array(document.getElementById("reqvCompanyName"), document.getElementById("reqvContactName"), document.getElementById("reqvEmail"), document.getElementById("reqvTel"), document.getElementById("reqvSupplier"));
-//]]>
-</script>
- 
-<script type="text/javascript"> 
-//<![CDATA[
-var ValidationSummary1 = document.all ? document.all["ValidationSummary1"] : document.getElementById("ValidationSummary1");
-ValidationSummary1.showmessagebox = "True";
-ValidationSummary1.showsummary = "False";
-var reqvCompanyName = document.all ? document.all["reqvCompanyName"] : document.getElementById("reqvCompanyName");
-reqvCompanyName.controltovalidate = "txtCompanyName";
-reqvCompanyName.errormessage = "Company Name cannot be empty";
-reqvCompanyName.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
-reqvCompanyName.initialvalue = "";
-var reqvContactName = document.all ? document.all["reqvContactName"] : document.getElementById("reqvContactName");
-reqvContactName.controltovalidate = "txtContactName";
-reqvContactName.errormessage = "Contact Name cannot be empty";
-reqvContactName.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
-reqvContactName.initialvalue = "";
-var reqvEmail = document.all ? document.all["reqvEmail"] : document.getElementById("reqvEmail");
-reqvEmail.controltovalidate = "txtEmail";
-reqvEmail.errormessage = "Email Address cannot be empty";
-reqvEmail.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
-reqvEmail.initialvalue = "";
-var reqvTel = document.all ? document.all["reqvTel"] : document.getElementById("reqvTel");
-reqvTel.controltovalidate = "txtTel";
-reqvTel.errormessage = "Telephone No. cannot be empty";
-reqvTel.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
-reqvTel.initialvalue = "";
-var reqvSupplier = document.all ? document.all["reqvSupplier"] : document.getElementById("reqvSupplier");
-reqvSupplier.controltovalidate = "ddlSupplier";
-reqvSupplier.errormessage = "Please select a supplier";
-reqvSupplier.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
-reqvSupplier.initialvalue = "0";
-//]]>
-</script>
- 
- 
-<script type="text/javascript"> 
-//<![CDATA[
- 
-document.getElementById('ValidationSummary1').dispose = function() {
-    Array.remove(Page_ValidationSummaries, document.getElementById('ValidationSummary1'));
-}
- 
-var Page_ValidationActive = false;
-if (typeof(ValidatorOnLoad) == "function") {
-    ValidatorOnLoad();
-}
- 
-function ValidatorOnSubmit() {
-    if (Page_ValidationActive) {
-        return ValidatorCommonOnSubmit();
-    }
-    else {
-        return true;
-    }
-}
-        Sys.Application.initialize();
- 
-document.getElementById('reqvCompanyName').dispose = function() {
-    Array.remove(Page_Validators, document.getElementById('reqvCompanyName'));
-}
- 
-document.getElementById('reqvContactName').dispose = function() {
-    Array.remove(Page_Validators, document.getElementById('reqvContactName'));
-}
- 
-document.getElementById('reqvEmail').dispose = function() {
-    Array.remove(Page_Validators, document.getElementById('reqvEmail'));
-}
- 
-document.getElementById('reqvTel').dispose = function() {
-    Array.remove(Page_Validators, document.getElementById('reqvTel'));
-}
- 
-document.getElementById('reqvSupplier').dispose = function() {
-    Array.remove(Page_Validators, document.getElementById('reqvSupplier'));
-}
-//]]>
-</script>
+
 </form>
  
 </body>
