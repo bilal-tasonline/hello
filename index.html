@@ -1,67 +1,22 @@
- 
- 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
- 
-<html xmlns="http://www.w3.org/1999/xhtml" >
-<head id="Head1"><meta http-equiv="X-UA-Compatible" content="IE=8" />
- 
-<title>
-	TAS Test
-</title>
- 
-<script language="javascript" type="text/javascript"> 
-var a = Math.ceil(Math.random() * 10);
-var b = Math.ceil(Math.random() * 10);       
-var c = a + b
-function DrawBotBoot()
-{
-    document.write("What is "+ a + " + " + b +"? ");
-    document.write("<input id='BotBootInput' type='text' maxlength='2' size='2'/>");
-}
- 
-function IsFormComplete()
-{
- 
-	var theform;
-	theform = document.form
-	var CheckLoginEmail;
-	CheckLoginEmail = true;
-	if (CheckLoginEmail)
-	{		
-		var d = document.getElementById('BotBootInput').value;
-		if (d != c)
-		{
-		alert("Incorrect Validation. Please provide correct answer");
-		//theform.BotBootInput.focus();
-		return (false);
-		}
+<html>
+<head>
+  <title>Test Input</title>
+  
+<script>
+	function loopLookup (form) {
+	var F = form.F.value;
+	var H = form.H.value;
+	window.open("curve1.html?Flow=" + F +"&Head=" + H,"_self","",false)
 	}
-	
-	//the form was ok.
-	alert("Correct Validation. Correct answer provided");
-	return true;
-}
 </script>
- 
 </head>
-<body style="background-color: #FFFFFF">
-<br /><br />
- 
-<form name="form1" method="post" action="curve.html" id="form1" dir="ltr" target="_self">
- 	    <center>
-            <table>
-            <tr><td>
-            <span id="Label7" style="color:Red;font-size:Small;font-weight:bold;">Please complete validation</span>
-            </td>
-            <td>
-            <font color="#000000"><b><script type="text/javascript">DrawBotBoot()</script></b></font>
-            </td></tr>
-            </table>
-            <br /><br />
-            <p align="center"><input type="submit" value="Submit Information" onClick="return IsFormComplete()"><input type="reset" value="Reset Form"></p>              
-            </center>
+<body>
+<form name="" action="" method="">
+<center>
+Flow: <input type="text" name="F" value="65"><br>
+Head: <input type="text" name="H" value="40" onkeydown="if(event.keyCode==13) loopLookup(this.form)"><br>
+<input type="button" name="button"  value="View" onclick="loopLookup(this.form)">
+</center>
 </form>
- 
 </body>
 </html>
-
