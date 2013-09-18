@@ -164,52 +164,73 @@ LineChart.prototype.transformContext = function(){
 };
 
 window.onload = function(){
+var Q1 = getUrlVars()["Q1"];
+var Q2 = getUrlVars()["Q2"];
+var Q3 = getUrlVars()["Q3"];
+var Q4 = getUrlVars()["Q4"];
+var Q5 = getUrlVars()["Q5"];
+var Q6 = getUrlVars()["Q6"];
+var Q7 = getUrlVars()["Q7"];
+var H1 = getUrlVars()["H1"];
+var H2 = getUrlVars()["H2"];
+var H3 = getUrlVars()["H3"];
+var H4 = getUrlVars()["H4"];
+var H5 = getUrlVars()["H5"];
+var H6 = getUrlVars()["H6"];
+var H7 = getUrlVars()["H7"];
+var QMax = getUrlVars()["FlowMax"];
+var HMax = getUrlVars()["HeadMax"];
+var QDP = getUrlVars()["Flow"];
+var HDP = getUrlVars()["Head"];
+    
+
     var myLineChart = new LineChart({
         canvasId: "myCanvas",
         minX: 0,
         minY: 0,
-        maxX: 140,
-        maxY: 100,
+        //maxX: 140,
+        //maxY: 100,
+        maxX: QMax,
+        maxY: HMax,
         unitsPerTickX: 10,
         unitsPerTickY: 10
     });
     
     var data = [{
-        x: 0,
-        y: 90
+        x: Q1,
+        y: H1
     }, {
-        x: 20,
-        y: 87
+        x: Q2,
+        y: H2
     }, {
-        x: 40,
-        y: 81
+        x: Q3,
+        y: H3
     }, {
-        x: 60,
-        y: 75
+        x: Q4,
+        y: H4
     }, {
-        x: 80,
-        y: 62
+        x: Q5,
+        y: H5
     }, {
-        x: 100,
-        y: 50
+        x: Q6,
+        y: H6
     }, {
-        x: 124,
-        y: 30
+        x: Q7,
+        y: H7
     }];
     
     myLineChart.drawLine(data, "blue", 3);
 
-    var F = getUrlVars()["Flow"];
-    var H = getUrlVars()["Head"];
+    
     
     var data = [{
         x: 0,
-        y: H
+        y: HDP
     }, {
-        x: F,
-        y: H
+        x: QDP,
+        y: HDP
     }, {
-        x: F,
+        x: QDP,
         y: 0
     }];
     
