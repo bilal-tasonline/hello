@@ -2,15 +2,17 @@
     <widget xmlns = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.phonegap.example"
-        version   = "1.2.0">
+        version   = "1.3.0">
 
     <!-- versionCode is optional and Android only -->
 
-    <name>Bilal Example</name>
+    <name>TASOnline</name>
 
     <description>
-        An example for bilal build docs. 
+        Technical Application Software 
     </description>
+    
+    <icon>icon.png</icon>
 
     <author href="https://build.phonegap.com" email="support@phonegap.com">
         Bilal
