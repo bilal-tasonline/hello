@@ -198,25 +198,38 @@ window.onload = function(){
     }];
     
     myLineChart.drawLine(data, "blue", 3);
+
+    var F = getUrlVars()["Flow"];
+    var H = getUrlVars()["Head"];
     
     var data = [{
         x: 0,
-        y: 70
+        y: H
     }, {
-        x: 68,
-        y: 70
+        x: F,
+        y: H
     }, {
-        x: 68,
+        x: F,
         y: 0
     }];
     
     myLineChart.drawLine(data, "red", 3);
 };
+
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+    return vars;
+}
         </script>
     </head>
     <body>
+<center>
 <canvas id="myCanvas" width="600" height="300" style="border:1px solid black;">
 </canvas>
-    
-
+<br>
+<FORM><INPUT Type="button" VALUE="Back" onClick="history.go(-1);return true;"></FORM>   
+</center>
 </body></html>
