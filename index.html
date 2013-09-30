@@ -1,35 +1,137 @@
 <html>
 <head>
-  <title>Test Input</title>
+<title>Test Input</title>
+<script src="jquery-1.9.1.js"></script>
+<script type="text/javascript"> 
+$(document).ready(function(){
+   if ($("input[name='r_SelectType']:checked").val() == 'on') {
+  	    $('.manual_panel').slideDown();
+  	    $('.exist_panel').slideUp();
+	    $('.settings_panel').slideDown();
+
+   }
+   else{
+  	    $('.manual_panel').slideUp();
+  	    $('.exist_panel').slideDown();
+	    $('.settings_panel').slideUp();
+   } 
+
+   $("input[name='r_SelectType']").change(function(){
+     if ($("input[name='r_SelectType']:checked").val() == 'on') {
+    	    $('.manual_panel').slideDown();
+  	    $('.exist_panel').slideUp();
+	    $('.settings_panel').slideDown();
+     }
+     else{
+	    $('.manual_panel').slideUp();
+  	    $('.exist_panel').slideDown();
+	    $('.settings_panel').slideUp();
+     }
+   });  
+});
+</script>
+
   
 <script>
 	function loopLookup (form) {
-	var Q1 = form.Q1.value;
-	var Q2 = form.Q2.value;
-	var Q3 = form.Q3.value;
-	var Q4 = form.Q4.value;
-	var Q5 = form.Q5.value;
-	var Q6 = form.Q6.value;
-	var Q7 = form.Q7.value;
-	var H1 = form.H1.value;
-	var H2 = form.H2.value;
-	var H3 = form.H3.value;
-	var H4 = form.H4.value;
-	var H5 = form.H5.value;
-	var H6 = form.H6.value;
-	var H7 = form.H7.value;
-	var QMax = form.QMax.value;
-	var HMax = form.HMax.value;
+
+	var nArNo=form.cHard.options.selectedIndex;
+	//alert(nArNo);
+	GetHardData();
+
+	if ($("input[name='r_SelectType']:checked").val() == 'on') {
+		var Q1 = form.Q1.value;
+		var Q2 = form.Q2.value;
+		var Q3 = form.Q3.value;
+		var Q4 = form.Q4.value;
+		var Q5 = form.Q5.value;
+		var Q6 = form.Q6.value;
+		var Q7 = form.Q7.value;
+		var H1 = form.H1.value;
+		var H2 = form.H2.value;
+		var H3 = form.H3.value;
+		var H4 = form.H4.value;
+		var H5 = form.H5.value;
+		var H6 = form.H6.value;
+		var H7 = form.H7.value;
+		var QMax = form.QMax.value;
+		var HMax = form.HMax.value;
+	}
+	else{
+		var Q1 = aFlow[nArNo][1];
+		var Q2 = aFlow[nArNo][2];
+		var Q3 = aFlow[nArNo][3];
+		var Q4 = aFlow[nArNo][4];
+		var Q5 = aFlow[nArNo][5];
+		var Q6 = aFlow[nArNo][6];
+		var Q7 = aFlow[nArNo][7];
+		var H1 = aHead[nArNo][1];
+		var H2 = aHead[nArNo][2];
+		var H3 = aHead[nArNo][3];
+		var H4 = aHead[nArNo][4];
+		var H5 = aHead[nArNo][5];
+		var H6 = aHead[nArNo][6];
+		var H7 = aHead[nArNo][7];
+		var QMax = aPump[nArNo][2];
+		var HMax = aPump[nArNo][3];
+	}
+
+	
 	var QDP = form.QDP.value;
 	var HDP = form.HDP.value;
 	window.open("curve.html?Q1=" + Q1 +"&Q2=" + Q2 +"&Q3=" + Q3 +"&Q4=" + Q4 +"&Q5=" + Q5 +"&Q6=" + Q6 +"&Q7=" + Q7 +"&H1=" + H1 +"&H2=" + H2 +"&H3=" + H3 +"&H4=" + H4 +"&H5=" + H5 +"&H6=" + H6 +"&H7=" + H7 +"&FlowMax=" + QMax +"&HeadMax=" + HMax +"&Flow=" + QDP +"&Head=" + HDP,"_self","",false)
 	}
 </script>
+
+
+<script LANGUAGE="JavaScript">
+<!-- Beginning of JavaScript Applet ---
+	/* JavaScript Engineering Toolbox
+		Copyright (C) 1996 Harry Rosen
+		All rights Reserved
+	*/
+
+
+	// Data section
+	function GetHardData() {
+		var nNoH	= 2;
+		aPump		= new MHardArray(nNoH);
+		aFlow		= new MHardArray(nNoH);
+		aHead		= new MHardArray(nNoH);
+		aPump[1] = new initArray('LCC-M 250-660 650 RPM',1600,40) 
+		aFlow[1] = new initArray(0.00,278.57,501.43,780.00,1114.29,1337.14,1534.08)
+		aHead[1] = new initArray(32.81,32.79,32.28,30.23,27.46,25.19,22.64)
+		aPump[2] = new initArray('LCC-M 250-660 720 mm',1800,50) 
+		aFlow[2] = new initArray(0.00,240.00,528.00,800.00,992.00,1376.00,1697.03)
+		aHead[2] = new initArray(40.18,40.52,39.55,37.71,36.02,31.93,27.51)
+ 	}
+
+
+	function initArray() {
+		this.length = initArray.arguments.length
+		for (var i = 0; i < this.length; i++)
+		  this[i+1] = initArray.arguments[i]
+	}
+
+	function MHardArray(n, val) { /*create an array with element[0] = number of elements*/
+		this.length = n;
+		for (var i = 1; i <= n; i++) {
+			this[i] = val }
+		return this
+	}
+
+<!-- End of JavaScript code ------------------------------------------->
+</script>
+
 </head>
 <body>
 <form name="" action="" method="">
 <center>
 <br>
+<input id="r_SelectType_ON" type="radio" name="r_SelectType" value="on" /><label for="r_benchmark_ON"> Maunal Curve</label>
+<input id="r_SelectType_OFF" type="radio" name="r_SelectType" value="off" checked="checked" /><label for="r_benchmark_OFF"> Existing Curve</label>
+
+<div class='manual_panel panel'>
 <table border="0" bordercolor="000000" width="100%" cellpadding="0" cellspacing="0">
 	<tr>
 		<td colspan="8"><b>Curve Points</b></td>
@@ -57,10 +159,30 @@
 		<td><input type="text" name="H7" value="0" size="4"></td>
 	</tr>
 </table>
-<BR><BR>
+</div>
+<div class='exist_panel panel'>
 <table border="0" bordercolor="000000" width="100%" cellpadding="0" cellspacing="0">
 	<tr>
-		<td colspan="4"><b>Flow and Head</b></td>
+		<td colspan="8"><b>Existing Curves</b></td>
+		
+	</tr>
+	<tr>
+		<td>
+			<select NAME="cHard" size="1">
+            		<option>Select-&gt;</option>
+            		<option>LCC-M 250-660 650 RPM&nbsp;</option>
+            		<option>LCC-M 250-660 720 mm&nbsp;</option>
+          		</select>
+		</td>
+		
+	</tr>
+</table>
+</div>
+<BR>
+<div class='settings_panel panel'>
+<table border="0" bordercolor="000000" width="100%" cellpadding="0" cellspacing="0">
+	<tr>
+		<td colspan="4"><b>Flow and Head Settings</b></td>
 		
 	</tr>
 	<tr>
@@ -68,6 +190,15 @@
 		<td><input type="text" name="QMax" value="0" size="4"></td>
 		<td>Head Max</td>
 		<td><input type="text" name="HMax" value="0" size="4"></td>
+	</tr>
+</table>
+<BR>
+</div>
+
+<table border="0" bordercolor="000000" width="100%" cellpadding="0" cellspacing="0">
+	<tr>
+		<td colspan="4"><b>Duty</b></td>
+		
 	</tr>
 	<tr>
 		<td>Flow Duty</td>
