@@ -164,7 +164,7 @@ LineChart.prototype.transformContext = function(){
 };
 
 window.onload = function(){
-var Q1 = getUrlVars()["Q1"];
+	var Q1 = getUrlVars()["Q1"];
 var Q2 = getUrlVars()["Q2"];
 var Q3 = getUrlVars()["Q3"];
 var Q4 = getUrlVars()["Q4"];
@@ -182,7 +182,14 @@ var QMax = getUrlVars()["FlowMax"];
 var HMax = getUrlVars()["HeadMax"];
 var QDP = getUrlVars()["Flow"];
 var HDP = getUrlVars()["Head"];
+var xTick
     
+if (QMax > 1000) {
+        xTick = 200
+}
+else{
+	xTick = 20
+}
 
     var myLineChart = new LineChart({
         canvasId: "myCanvas",
@@ -192,7 +199,7 @@ var HDP = getUrlVars()["Head"];
         //maxY: 100,
         maxX: QMax,
         maxY: HMax,
-        unitsPerTickX: 10,
+	unitsPerTickX: xTick,
         unitsPerTickY: 10
     });
     
