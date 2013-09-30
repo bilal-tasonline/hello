@@ -183,24 +183,38 @@ var HMax = getUrlVars()["HeadMax"];
 var QDP = getUrlVars()["Flow"];
 var HDP = getUrlVars()["Head"];
 var xTick
+var yTick
     
-if (QMax > 1000) {
+if (QMax >= 1000) {
         xTick = 200
+}else if (QMax >= 500){
+        xTick = 100
+}else if (QMax >= 200){
+        xTick = 50
 }
 else{
 	xTick = 20
+}
+
+if (HMax >= 1000) {
+        yTick = 100
+}else if (HMax >= 500){
+        yTick = 50
+}else if (HMax >= 200){
+        yTick = 20
+}
+else{
+	yTick = 10
 }
 
     var myLineChart = new LineChart({
         canvasId: "myCanvas",
         minX: 0,
         minY: 0,
-        //maxX: 140,
-        //maxY: 100,
         maxX: QMax,
         maxY: HMax,
 	unitsPerTickX: xTick,
-        unitsPerTickY: 10
+        unitsPerTickY: yTick
     });
     
     var data = [{
@@ -255,7 +269,7 @@ function getUrlVars() {
     </head>
     <body>
 <center>
-<canvas id="myCanvas" width="600" height="300" style="border:1px solid black;">
+<canvas id="myCanvas" width="600" height="290" style="border:1px solid black;">
 </canvas>
 <br>
 <FORM><INPUT Type="button" VALUE="Back" onClick="history.go(-1);return true;"></FORM>   
