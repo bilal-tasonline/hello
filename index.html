@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Test Input</title>
+<title>PM App</title>
 <script src="jquery-1.9.1.js"></script>
 <script type="text/javascript"> 
 $(document).ready(function(){
@@ -16,6 +16,7 @@ $(document).ready(function(){
 	    $('.settings_panel').slideUp();
    } 
 
+
    $("input[name='r_SelectType']").change(function(){
      if ($("input[name='r_SelectType']:checked").val() == 'on') {
     	    $('.manual_panel').slideDown();
@@ -27,10 +28,115 @@ $(document).ready(function(){
   	    $('.exist_panel').slideDown();
 	    $('.settings_panel').slideUp();
      }
-   });  
+   }); 
+
+   if ($("input[name='r_Calc']:checked").val() == 'Power') {
+  	    $('.power_panel').slideDown();
+  	    $('.duty_panel').slideUp();
+  	    $('.head_panel').slideUp();
+  	    $('.transfer_panel').slideUp();
+   }
+   else if ($("input[name='r_Calc']:checked").val() == 'Head') {
+  	    $('.power_panel').slideUp();
+  	    $('.duty_panel').slideUp();
+  	    $('.head_panel').slideDown();
+  	    $('.transfer_panel').slideUp();
+   }
+   else if ($("input[name='r_Calc']:checked").val() == 'Duty') {
+  	    $('.power_panel').slideUp();
+  	    $('.duty_panel').slideDown();
+  	    $('.head_panel').slideUp();
+  	    $('.transfer_panel').slideUp();
+   }
+   else{
+  	    $('.power_panel').slideUp();
+  	    $('.duty_panel').slideUp();
+  	    $('.head_panel').slideUp();
+  	    $('.transfer_panel').slideDown();
+	    var now = new Date();
+  	    var minutes = now.getMinutes();
+  	    minutes = minutes > 9 ? minutes : '0' + minutes;
+	    var formatedDate = now.getFullYear()+'/'+(now.getMonth()+1)+'/'+now.getDate()+' '+now.getHours()+':'+minutes;
+	    $("input[name='nDate']").val(formatedDate);
+   } 
+
+   $("input[name='r_Calc']").change(function(){
+     if ($("input[name='r_Calc']:checked").val() == 'Power') {
+  	    $('.power_panel').slideDown();
+  	    $('.duty_panel').slideUp();
+  	    $('.head_panel').slideUp();
+  	    $('.transfer_panel').slideUp();
+     }
+     else if ($("input[name='r_Calc']:checked").val() == 'Head') {
+  	    $('.power_panel').slideUp();
+  	    $('.duty_panel').slideUp();
+  	    $('.head_panel').slideDown();
+  	    $('.transfer_panel').slideUp();
+     }
+     else if ($("input[name='r_Calc']:checked").val() == 'Duty') {
+  	    $('.power_panel').slideUp();
+  	    $('.duty_panel').slideDown();
+  	    $('.head_panel').slideUp();
+  	    $('.transfer_panel').slideUp();
+     }
+     else{
+  	    $('.power_panel').slideUp();
+  	    $('.duty_panel').slideUp();
+  	    $('.head_panel').slideUp();
+  	    $('.transfer_panel').slideDown();
+	    var now = new Date();
+  	    var minutes = now.getMinutes();
+  	    minutes = minutes > 9 ? minutes : '0' + minutes;
+	    var formatedDate = now.getFullYear()+'/'+(now.getMonth()+1)+'/'+now.getDate()+' '+now.getHours()+':'+minutes;
+	    $("input[name='nDate']").val(formatedDate);
+     }
+   });
 });
 </script>
 
+<script>
+	function CalcHead (form) {
+
+	var xSP = form.nSP.value;
+	var xDP = form.nDP.value;
+	var xGHt = form.nGHt.value;	
+
+	var xHead = (xDP-xSP)/9.81+parseFloat(xGHt);
+	form.nTotH.value = xHead.toFixed(1);
+	form.HDP.value = xHead.toFixed(1);
+	form.HDP.style.backgroundColor = "Gainsboro";
+	}
+</script>
+
+<script>
+	function CalcPower (form) {
+
+	var xVolts = form.nVolts.value;
+	var xAmps = form.nAmps.value;
+	var xPF = form.nPF.value;
+
+	var xKWElec = (Math.sqrt(3)*xVolts*xAmps*xPF)/1000;
+
+	form.nKWElec.value = xKWElec.toFixed(1);
+	form.nEKW.value = xKWElec.toFixed(1);	form.nKWElec.style.backgroundColor = "Gainsboro";
+
+	}
+</script>
+
+<script>
+	function CalcEff (form) {
+
+	var xFlow = form.QDP.value/3.6;
+	var xHead = form.HDP.value;
+	var xKWElec = form.nKWElec.value;
+	var xMotorEff = form.nMotorEff.value/100;
+
+	var xEff = ((xFlow*xHead)/(102*xKWElec*xMotorEff))*100;
+	form.nEff.value = xEff.toFixed(1);
+	form.HDP.style.backgroundColor = "";
+	form.nKWElec.style.backgroundColor = "";
+	}
+</script>
   
 <script>
 	function loopLookup (form) {
@@ -38,6 +144,11 @@ $(document).ready(function(){
 	var nArNo=form.cHard.options.selectedIndex;
 	//alert(nArNo);
 	GetHardData();
+
+	if (nArNo == 0 && $("input[name='r_SelectType']:checked").val() == 'off') {
+  	    	alert("Please selct a curve OR manually enter a curve");
+     	}
+	
 
 	if ($("input[name='r_SelectType']:checked").val() == 'on') {
 		var Q1 = form.Q1.value;
@@ -54,6 +165,13 @@ $(document).ready(function(){
 		var H5 = form.H5.value;
 		var H6 = form.H6.value;
 		var H7 = form.H7.value;
+		var E1 = form.E1.value;
+		var E2 = form.E2.value;
+		var E3 = form.E3.value;
+		var E4 = form.E4.value;
+		var E5 = form.E5.value;
+		var E6 = form.E6.value;
+		var E7 = form.E7.value;
 		var QMax = form.QMax.value;
 		var HMax = form.HMax.value;
 	}
@@ -72,14 +190,50 @@ $(document).ready(function(){
 		var H5 = aHead[nArNo][5];
 		var H6 = aHead[nArNo][6];
 		var H7 = aHead[nArNo][7];
+		var E1 = aEff[nArNo][1];
+		var E2 = aEff[nArNo][2];
+		var E3 = aEff[nArNo][3];
+		var E4 = aEff[nArNo][4];
+		var E5 = aEff[nArNo][5];
+		var E6 = aEff[nArNo][6];
+		var E7 = aEff[nArNo][7];
 		var QMax = aPump[nArNo][2];
 		var HMax = aPump[nArNo][3];
 	}
 
 	
-	var QDP = form.QDP.value;
-	var HDP = form.HDP.value;
-	window.open("curve.html?Q1=" + Q1 +"&Q2=" + Q2 +"&Q3=" + Q3 +"&Q4=" + Q4 +"&Q5=" + Q5 +"&Q6=" + Q6 +"&Q7=" + Q7 +"&H1=" + H1 +"&H2=" + H2 +"&H3=" + H3 +"&H4=" + H4 +"&H5=" + H5 +"&H6=" + H6 +"&H7=" + H7 +"&FlowMax=" + QMax +"&HeadMax=" + HMax +"&Flow=" + QDP +"&Head=" + HDP,"_self","",false)
+	var xQDP = form.QDP.value;
+	var xHDP = form.HDP.value;
+	var xEDP = form.nEff.value;
+	window.open("curve.html?Q1="+ Q1 +"&Q2="+ Q2 +"&Q3="+ Q3 +"&Q4="+ Q4 +"&Q5="+ Q5 +"&Q6="+ Q6 +"&Q7="+ Q7 +"&H1="+ H1 +"&H2="+ H2 +"&H3="+ H3 +"&H4="+ H4 +"&H5="+ H5 +"&H6="+ H6 +"&H7="+ H7 +"&E1="+ E1 +"&E2="+ E2 +"&E3="+ E3 +"&E4="+ E4 +"&E5="+ E5 +"&E6="+ E6 +"&E7="+ E7 +"&FlowMax="+ QMax +"&HeadMax="+ HMax +"&Eff="+ xEDP +"&Flow="+ xQDP +"&Head="+ xHDP,"_self","",false)
+	}
+</script>
+
+<script>
+	function TransData (form) {
+
+	var nRefNo=form.cRefNo.value;
+
+	if (nRefNo == "") {
+  	    	alert("Please select a reference number");
+     	}
+	else{
+		var xSP = form.nSP.value;
+		var xDP = form.nDP.value;
+		var xGHt = form.nGHt.value;
+		var xVolts = form.nVolts.value;
+		var xAmps = form.nAmps.value;
+		var xPF = form.nPF.value;
+		var xEKW = form.nKWElec.value;
+		var xMEff = form.nMotorEff.value;
+		var xDescr = form.nDescr.value;
+		var xQDP = form.QDP.value;
+		var xHDP = form.HDP.value;
+		var xEDP = form.nEff.value;
+		var xRef = form.cRefNo.value;
+		var xDate = form.nDate.value;
+		window.open("http://www.taspumpmonitor.co.za/pm/savemobile.asp?Date="+ xDate +"&Ref="+ xRef +"&Descr="+ xDescr +"&SP="+ xSP +"&DP="+ xDP +"&GHt="+ xGHt +"&Volts="+ xVolts +"&Amps="+ xAmps +"&PF="+ xPF +"&KW="+ xEKW +"&MEff="+ xMEff +"&Eff="+ xEDP +"&Flow="+ xQDP +"&Head="+ xHDP,"_self","",false)
+	}
 	}
 </script>
 
@@ -94,16 +248,79 @@ $(document).ready(function(){
 
 	// Data section
 	function GetHardData() {
-		var nNoH	= 2;
+		var nNoH	= 11;
 		aPump		= new MHardArray(nNoH);
 		aFlow		= new MHardArray(nNoH);
 		aHead		= new MHardArray(nNoH);
+		aEff		= new MHardArray(nNoH);
+		aKW		= new MHardArray(nNoH);
+		aNPSH		= new MHardArray(nNoH);
 		aPump[1] = new initArray('LCC-M 250-660 650 RPM',1600,40) 
 		aFlow[1] = new initArray(0.00,278.57,501.43,780.00,1114.29,1337.14,1534.08)
 		aHead[1] = new initArray(32.81,32.79,32.28,30.23,27.46,25.19,22.64)
+		aEff[1] = new initArray(0.00,0.00,0.00,0.00,0.0,0.00,0.00)
+		aKW[1] = new initArray(0.00,0.00,0.00,0.00,0.00,0.00,0.00)
+		aNPSH[1] = new initArray(0.00,0.00,0.00,0.00,0.00,0.00,0.00)
 		aPump[2] = new initArray('LCC-M 250-660 720 mm',1800,50) 
 		aFlow[2] = new initArray(0.00,240.00,528.00,800.00,992.00,1376.00,1697.03)
 		aHead[2] = new initArray(40.18,40.52,39.55,37.71,36.02,31.93,27.51)
+		aEff[2] = new initArray(0.00,0.00,0.00,0.00,0.00,0.00,0.00)
+		aKW[2] = new initArray(0.00,0.00,0.00,0.00,0.00,0.00,0.00)
+		aNPSH[2] = new initArray(0.00,0.00,0.00,0.00,0.00,0.00,0.00)
+		aPump[3] = new initArray('NE 65-200 2P 191 mm',200,60) 
+		aFlow[3] = new initArray(0.00,33.50,61.00,92.50,122.80,145.80,150.00)
+		aHead[3] = new initArray(47.10,47.70,46.10,43.00,37.00,31.00,30.00)
+		aEff[3] = new initArray(0.00,45.00,64.10,74.00,74.50,68.00,66.00)
+		aKW[3] = new initArray(6.84,9.67,11.95,14.65,16.61,18.10,18.57)
+		aNPSH[3] = new initArray(3.00,2.50,2.30,2.50,4.10,6.50,8.10)
+		aPump[4] = new initArray('NE 100-400 4P 355 mm',250,50) 
+		aFlow[4] = new initArray(0.00,80.40,120.68,160.91,181.02,201.13,206.16)
+		aHead[4] = new initArray(42.38,41.36,38.63,34.79,31.35,28.32,27.31)
+		aEff[4] = new initArray(40.00,55.00,69.80,73.00,72.00,69.40,66.00)
+		aKW[4] = new initArray(11.91,16.48,18.19,20.88,21.47,22.35,23.23)
+		aNPSH[4] = new initArray(3.03,1.11,1.31,2.33,3.84,5.56,7.08)
+		aPump[5] = new initArray('NT 50-200 2P 205 mm',100,70) 
+		aFlow[5] = new initArray(0.00,17.50,27.50,45.00,65.50,80.00,92.00)
+		aHead[5] = new initArray(61.50,61.50,61.50,60.00,56.00,51.50,45.50)
+		aEff[5] = new initArray(0.00,42.50,56.00,67.00,73.00,70.50,63.50)
+		aKW[5] = new initArray(4.22,6.90,8.23,10.98,13.68,15.92,17.95)
+		aNPSH[5] = new initArray(4.00,2.00,2.00,2.00,3.00,5.00,7.50)
+		aPump[6] = new initArray('NT 80-200 2P 210 mm',250,70) 
+		aFlow[6] = new initArray(0.00,52.50,87.00,130.00,180.00,219.00,240.00)
+		aHead[6] = new initArray(59.00,59.00,58.80,57.30,52.00,45.20,40.00)
+		aEff[6] = new initArray(0.00,50.00,65.00,75.00,80.00,75.00,70.00)
+		aKW[6] = new initArray(9.99,16.87,21.43,27.05,31.87,35.95,37.35)
+		aNPSH[6] = new initArray(4.00,2.00,2.00,3.00,5.50,8.00,10.30)
+		aPump[7] = new initArray('NT 65-160 2P 170 mm',150,40) 
+		aFlow[7] = new initArray(0.00,25.00,50.00,80.00,110.00,127.50,150.00)
+		aHead[7] = new initArray(38.00,38.00,38.00,36.70,33.00,30.00,24.30)
+		aEff[7] = new initArray(0.00,40.00,62.50,75.00,80.00,77.50,70.00)
+		aKW[7] = new initArray(4.53,6.47,8.28,10.66,12.36,13.44,14.18)
+		aNPSH[7] = new initArray(3.00,2.00,2.00,2.70,4.00,5.00,7.00)
+		aPump[8] = new initArray('NT 80-160 2P 180 mm',240,44) 
+		aFlow[8] = new initArray(0.00,50.00,95.00,132.50,155.00,197.50,220.00)
+		aHead[8] = new initArray(40.60,40.50,40.00,37.00,34.00,27.30,23.00)
+		aEff[8] = new initArray(0.00,50.00,70.00,78.00,80.00,75.00,65.00)
+		aKW[8] = new initArray(7.46,11.03,14.78,17.12,17.94,19.58,21.20)
+		aNPSH[8] = new initArray(5.00,3.00,3.00,3.90,4.50,8.00,12.00)
+		aPump[9] = new initArray('ETA 65-200 2P 209 mm',200,80) 
+		aFlow[9] = new initArray(0.00,25.00,70.00,110.00,142.50,150.00,165.00)
+		aHead[9] = new initArray(59.90,60.00,57.50,51.20,42.60,40.20,34.80)
+		aEff[9] = new initArray(0.00,39.00,70.00,75.66,70.00,67.00,58.00)
+		aKW[9] = new initArray(8.03,11.00,15.66,20.27,23.62,25.00,26.96)
+		aNPSH[9] = new initArray(1.50,2.20,2.25,3.40,5.20,5.50,6.50)
+		aPump[10] = new initArray('ETA 65-250 2P 242 mm',200,100) 
+		aFlow[10] = new initArray(0.00,37.81,78.65,106.88,120.00,141.17,165.37)
+		aHead[10] = new initArray(80.53,79.51,75.85,70.15,65.80,56.43,39.65)
+		aEff[10] = new initArray(0.00,50.00,68.00,71.00,71.00,66.00,49.00)
+		aKW[10] = new initArray(9.63,16.37,23.89,28.76,31.00,32.87,36.44)
+		aNPSH[10] = new initArray(0.00,0.00,0.00,0.00,0.00,0.00,0.00)
+		aPump[11] = new initArray('ETA 80-200 2P 205 mm',300,60) 
+		aFlow[11] = new initArray(0.00,50.00,93.18,125.00,161.84,196.17,250.48)
+		aHead[11] = new initArray(55.65,55.50,53.62,51.10,46.57,40.15,23.65)
+		aEff[11] = new initArray(0.00,50.00,70.09,77.00,79.56,75.70,49.00)
+		aKW[11] = new initArray(11.35,16.00,19.41,22.00,25.80,28.34,32.92)
+		aNPSH[11] = new initArray(0.76,3.7,2.58,2.20,4.10,6.84,11.39)
  	}
 
 
@@ -123,13 +340,22 @@ $(document).ready(function(){
 <!-- End of JavaScript code ------------------------------------------->
 </script>
 
+<style>
+body, td {
+font: normal 80% verdana, arial, helvetica, sans-serif;
+color: black;
+}  
+</style>
+
 </head>
 <body>
 <form name="" action="" method="">
-<center>
 <br>
-<input id="r_SelectType_ON" type="radio" name="r_SelectType" value="on" /><label for="r_benchmark_ON"> Maunal Curve</label>
-<input id="r_SelectType_OFF" type="radio" name="r_SelectType" value="off" checked="checked" /><label for="r_benchmark_OFF"> Existing Curve</label>
+<center>
+<p>
+<input id="r_SelectType_ON" type="radio" name="r_SelectType" value="on" /><label> Manual Curve</label>
+<input id="r_SelectType_OFF" type="radio" name="r_SelectType" value="off" checked="checked" /><label> Existing Curve</label>
+</p>
 
 <div class='manual_panel panel'>
 <table border="0" bordercolor="000000" width="100%" cellpadding="0" cellspacing="0">
@@ -138,30 +364,41 @@ $(document).ready(function(){
 		
 	</tr>
 	<tr>
-		<td>Flow</td>
-		<td><input type="text" name="Q1" value="0" size="4"></td>
-		<td><input type="text" name="Q2" value="0" size="4"></td>
-		<td><input type="text" name="Q3" value="0" size="4"></td>
-		<td><input type="text" name="Q4" value="0" size="4"></td>
-		<td><input type="text" name="Q5" value="0" size="4"></td>
-		<td><input type="text" name="Q6" value="0" size="4"></td>
-		<td><input type="text" name="Q7" value="0" size="4"></td>
+		<td>Flow - m&#179;/hr</td>
+		<td><input type="text" name="Q1" size="4"></td>
+		<td><input type="text" name="Q2" size="4"></td>
+		<td><input type="text" name="Q3" size="4"></td>
+		<td><input type="text" name="Q4" size="4"></td>
+		<td><input type="text" name="Q5" size="4"></td>
+		<td><input type="text" name="Q6" size="4"></td>
+		<td><input type="text" name="Q7" size="4"></td>
 		
 	</tr>
 	<tr>
-		<td>Head</td>
-		<td><input type="text" name="H1" value="0" size="4"></td>
-		<td><input type="text" name="H2" value="0" size="4"></td>
-		<td><input type="text" name="H3" value="0" size="4"></td>
-		<td><input type="text" name="H4" value="0" size="4"></td>
-		<td><input type="text" name="H5" value="0" size="4"></td>
-		<td><input type="text" name="H6" value="0" size="4"></td>
-		<td><input type="text" name="H7" value="0" size="4"></td>
+		<td>Head - m</td>
+		<td><input type="text" name="H1" size="4"></td>
+		<td><input type="text" name="H2" size="4"></td>
+		<td><input type="text" name="H3" size="4"></td>
+		<td><input type="text" name="H4" size="4"></td>
+		<td><input type="text" name="H5" size="4"></td>
+		<td><input type="text" name="H6" size="4"></td>
+		<td><input type="text" name="H7" size="4"></td>
+	</tr>
+	<tr>
+		<td>Efficiency - %</td>
+		<td><input type="text" name="E1" size="4"></td>
+		<td><input type="text" name="E2" size="4"></td>
+		<td><input type="text" name="E3" size="4"></td>
+		<td><input type="text" name="E4" size="4"></td>
+		<td><input type="text" name="E5" size="4"></td>
+		<td><input type="text" name="E6" size="4"></td>
+		<td><input type="text" name="E7" size="4"></td>
 	</tr>
 </table>
 </div>
+
 <div class='exist_panel panel'>
-<table border="0" bordercolor="000000" width="100%" cellpadding="0" cellspacing="0">
+<table border="0" bordercolor="000000" width="50%" cellpadding="0" cellspacing="0">
 	<tr>
 		<td colspan="8"><b>Existing Curves</b></td>
 		
@@ -172,6 +409,15 @@ $(document).ready(function(){
             		<option>Select-&gt;</option>
             		<option>LCC-M 250-660 650 RPM&nbsp;</option>
             		<option>LCC-M 250-660 720 mm&nbsp;</option>
+            		<option>NE 65-200 2P 191 mm&nbsp;</option>
+            		<option>NE 100-400 4P 355 mm&nbsp;</option>
+            		<option>NT 50-200 2P 205 mm&nbsp;</option>
+            		<option>NT 80-200 2P 210 mm&nbsp;</option>
+            		<option>NT 65-160 2P 170 mm&nbsp;</option>
+            		<option>NT 80-160 2P 180 mm&nbsp;</option>
+            		<option>ETA 65-200 2P 209 mm&nbsp;</option>
+            		<option>ETA 65-250 2P 242 mm&nbsp;</option>
+            		<option>ETA 80-200 2P 205 mm&nbsp;</option>
           		</select>
 		</td>
 		
@@ -179,36 +425,139 @@ $(document).ready(function(){
 </table>
 </div>
 <BR>
+
 <div class='settings_panel panel'>
-<table border="0" bordercolor="000000" width="100%" cellpadding="0" cellspacing="0">
+<table border="0" bordercolor="000000" width="50%" cellpadding="0" cellspacing="0">
 	<tr>
-		<td colspan="4"><b>Flow and Head Settings</b></td>
+		<td colspan="4"><b>Graph Settings</b></td>
 		
 	</tr>
 	<tr>
-		<td>Flow Max</td>
+		<td>Max Flow (Graph) - m&#179;/hr</td>
 		<td><input type="text" name="QMax" value="0" size="4"></td>
-		<td>Head Max</td>
+		<td>Max Head (Graph) - m</td>
 		<td><input type="text" name="HMax" value="0" size="4"></td>
 	</tr>
 </table>
 <BR>
 </div>
 
-<table border="0" bordercolor="000000" width="100%" cellpadding="0" cellspacing="0">
+<p>
+<input id="r_Calc_Head" type="radio" name="r_Calc" value="Head" /><label> Total Head Calc</label>
+<input id="r_Calc_Power" type="radio" name="r_Calc" value="Power" /><label> Electrical Power Calc</label>
+<input id="r_Calc_Duty" type="radio" name="r_Calc" value="Duty" checked="checked" /><label> Duty Point</label>
+<input id="r_Calc_Transfer" type="radio" name="r_Calc" value="Transfer" /><label> Transfer Data</label>
+</p>
+
+<div class='head_panel panel'>
+<table border="0" bordercolor="000000" width="50%" cellpadding="0" cellspacing="0">
 	<tr>
-		<td colspan="4"><b>Duty</b></td>
+		<td colspan="2"><b>Total Head</b></td>
 		
 	</tr>
 	<tr>
-		<td>Flow Duty</td>
-		<td><input type="text" name="QDP" value="65" size="4"></td>
-		<td>Head Duty</td>
-		<td><input type="text" name="HDP" value="40" onkeydown="if(event.keyCode==13) loopLookup(this.form)" size="4"></td>
+		<td Width="50%">Suction Pressure</td>
+		<td><input type="text" name="nSP" size="4"> kPa</td>
+	</tr>
+	<tr>
+		<td>Discharge Pressure</td>
+		<td><input type="text" name="nDP" size="4"> kPa</td>
+	</tr>
+	<tr>
+		<td>Gauge Height</td>
+		<td><input type="text" name="nGHt" onkeydown="if(event.keyCode==13) CalcHead(this.form)" size="4" value="0.5"> m</td>
+	</tr>
+	<tr>
+		<td>Total Head</td>
+		<td><input type="text" name="nTotH" readonly size="4"> m</td>
 	</tr>
 </table>
+<BR>
+<input type="button" name="Headbutton"  value="Calculate Head" onclick="CalcHead(this.form)">
+</div>
+
+<div class='power_panel panel'>
+<table border="0" bordercolor="000000" width="50%" cellpadding="0" cellspacing="0">
+	<tr>
+		<td colspan="2"><b>Electrical Power</b></td>
+		
+	</tr>
+	<tr>
+		<td Width="50%">Volts</td>
+		<td><input type="text" name="nVolts" size="4"> V</td>
+	</tr>
+	<tr>
+		<td>Amps</td>
+		<td><input type="text" name="nAmps" size="4"> A</td>
+	</tr>
+	<tr>
+		<td>Power Factor</td>
+		<td><input type="text" name="nPF" onkeydown="if(event.keyCode==13) CalcPower(this.form)" size="4"></td>
+	</tr>
+	<tr>
+		<td>Electrical Power</td>
+		<td><input type="text" name="nEKW" readonly size="4"> kW</td>
+	</tr>
+</table>
+<BR>
+<input type="button" name="Pwrbutton"  value="Calculate Power" onclick="CalcPower(this.form)">
+</div>
+
+<div class='duty_panel panel'>
+<table border="0" bordercolor="000000" width="50%" cellpadding="0" cellspacing="0">
+	<tr>
+		<td colspan="4"><b>Duty Point</b></td>
+		
+	</tr>
+	<tr>
+		<td Width="50%">Flow Rate</td>
+		<td><input type="text" name="QDP" value="65" size="4"> m&#179;/hr</td>
+	</tr>
+	<tr>
+		<td>Head</td>
+		<td><input type="text" name="HDP" value="40" size="4"> m</td>
+	</tr>
+	<tr>
+		<td>Electrical Power</td>
+		<td><input type="text" name="nKWElec" size="4"> kW</td>
+	</tr>
+	<tr>
+		<td>Motor Efficiency</td>
+		<td><input type="text" name="nMotorEff" value="96" onkeydown="if(event.keyCode==13) CalcEff(this.form)" size="4"> %</td>
+	</tr>
+	<tr>
+		<td>Pump Efficiency</td>
+		<td><input type="text" name="nEff" onkeydown="if(event.keyCode==13) loopLookup(this.form)" size="4"> %</td>
+	</tr>
+</table>
+<BR>
+<input type="button" name="Effbutton"  value="Calculate Efficiency" onclick="CalcEff(this.form)">
+</div>
+
+<div class='transfer_panel panel'>
+<table border="0" bordercolor="000000" width="50%" cellpadding="0" cellspacing="0">
+	<tr>
+		<td colspan="4"><b>Transfer Data to PM</b></td>
+		
+	</tr>
+	<tr>
+		<td Width="50%">Reference No.</td>
+		<td><input type="text" name="cRefNo" size="20"></td>
+	</tr>
+	<tr>
+		<td>Date</td>
+		<td><input type="text" name="nDate" size="20"></td>
+	</tr>
+	<tr>
+		<td>Description</td>
+		<td><input type="text" name="nDescr" size="50"></td>
+	</tr>
+</table>
+<BR>
+<input type="button" name="Transbutton"  value="Transfer Data" onclick="TransData(this.form)">
+</div>
 <BR><BR>
-<input type="button" name="button"  value="Submit" onclick="loopLookup(this.form)">
+<input type="button" name="button"  value="View Curve" onclick="loopLookup(this.form)">
 </center>
 </form>
 </body>
