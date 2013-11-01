@@ -248,7 +248,7 @@ $(document).ready(function(){
 
 	// Data section
 	function GetHardData() {
-		var nNoH	= 11;
+		var nNoH	= 13;
 		aPump		= new MHardArray(nNoH);
 		aFlow		= new MHardArray(nNoH);
 		aHead		= new MHardArray(nNoH);
@@ -321,6 +321,18 @@ $(document).ready(function(){
 		aEff[11] = new initArray(0.00,50.00,70.09,77.00,79.56,75.70,49.00)
 		aKW[11] = new initArray(11.35,16.00,19.41,22.00,25.80,28.34,32.92)
 		aNPSH[11] = new initArray(0.76,3.7,2.58,2.20,4.10,6.84,11.39)
+		aPump[12] = new initArray('ZA 300-6630 4P 622 mm',1400,150) 
+		aFlow[12] = new initArray(0.00,288.00,540.00,720.00,972.00,1170.00,1341.00)
+		aHead[12] = new initArray(141.20,139.00,137.00,136.00,133.10,129.00,123.10)
+		aEff[12] = new initArray(0.00,37.50,60.00,68.80,76.80,80.80,80.40)
+		aKW[12] = new initArray(0.00,0.00,0.00,0.00,0.00,0.00,0.00)
+		aNPSH[12] = new initArray(0.00,0.00,0.00,0.00,0.00,0.00,0.00)
+		aPump[13] = new initArray('PC 9P02 1307 rpm',1400,100) 
+		aFlow[13] = new initArray(0.00,226.21,425.28,637.01,769.12,926.56,1076.77)
+		aHead[13] = new initArray(68.73,69.75,66.71,59.64,54.48,46.50,38.41)
+		aEff[13] = new initArray(0.00,47.51,66.12,75.42,77.45,76.97,74.89)
+		aKW[13] = new initArray(66.04,90.44,116.86,137.19,147.35,152.44,150.41)
+		aNPSH[13] = new initArray(4.04,4.04,4.04,5.05,6.57,8.59,12.03)
  	}
 
 
@@ -418,6 +430,8 @@ color: black;
             		<option>ETA 65-200 2P 209 mm&nbsp;</option>
             		<option>ETA 65-250 2P 242 mm&nbsp;</option>
             		<option>ETA 80-200 2P 205 mm&nbsp;</option>
+            		<option>ZA 300-6630 4P 622 mm&nbsp;</option>
+            		<option>PC 9P02 1307 rpm&nbsp;</option>
           		</select>
 		</td>
 		
