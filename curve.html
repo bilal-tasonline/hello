@@ -9,21 +9,23 @@ function LineChart(config){
     this.minY = config.minY;
     this.maxX = config.maxX;
     this.maxY = config.maxY;
+    this.xLabel = config.xLabel;
+    this.yLabel = config.yLabel;
     this.unitsPerTickX = config.unitsPerTickX;
     this.unitsPerTickY = config.unitsPerTickY;
     
     // constants
-    this.padding = 10;
+    this.padding = 25;
     this.tickSize = 10;
-    this.axisColor = "#555";
-    this.pointRadius = 5;
-    this.font = "12pt Calibri";
+    this.axisColor = "#000";
+    this.pointRadius = 4;
+    this.font = "10pt Verdana";
     /*
      * measureText does not provide a text height
      * metric, so we'll have to hardcode a text height
      * value
      */
-    this.fontHeight = 12;
+    this.fontHeight = 10;
     
     // relationships	
     this.context = this.canvas.getContext("2d");
@@ -31,8 +33,8 @@ function LineChart(config){
     this.rangeY = this.maxY - this.minY;
     this.numXTicks = Math.round(this.rangeX / this.unitsPerTickX);
     this.numYTicks = Math.round(this.rangeY / this.unitsPerTickY);
-    this.x = this.getLongestValueWidth() + this.padding * 2;
-    this.y = this.padding * 2;
+    this.x = this.getLongestValueWidth() + this.padding * 2 - 20;
+    this.y = this.padding * 2 - 10;
     this.width = this.canvas.width - this.x - this.padding * 2;
     this.height = this.canvas.height - this.y - this.padding - this.fontHeight;
     this.scaleX = this.width / this.rangeX;
@@ -81,9 +83,10 @@ LineChart.prototype.drawXAxis = function(){
         var label = Math.round((n + 1) * this.maxX / this.numXTicks);
         context.save();
         context.translate((n + 1) * this.width / this.numXTicks + this.x, this.y + this.height + this.padding);
-        context.fillText(label, 0, 0);
+        context.fillText(label, 0, -15);
         context.restore();
     }
+    context.fillText(this.xLabel, 300, 280);
     context.restore();
 };
 
@@ -117,9 +120,10 @@ LineChart.prototype.drawYAxis = function(){
         var value = Math.round(this.maxY - n * this.maxY / this.numYTicks);
         context.save();
         context.translate(this.x - this.padding, n * this.height / this.numYTicks + this.y);
-        context.fillText(value, 0, 0);
+        context.fillText(value, 10, 2);
         context.restore();
     }
+    context.fillText(this.yLabel, 70, 20);
     context.restore();
 };
 
@@ -178,10 +182,18 @@ var H4 = getUrlVars()["H4"];
 var H5 = getUrlVars()["H5"];
 var H6 = getUrlVars()["H6"];
 var H7 = getUrlVars()["H7"];
+var E1 = getUrlVars()["E1"];
+var E2 = getUrlVars()["E2"];
+var E3 = getUrlVars()["E3"];
+var E4 = getUrlVars()["E4"];
+var E5 = getUrlVars()["E5"];
+var E6 = getUrlVars()["E6"];
+var E7 = getUrlVars()["E7"];
 var QMax = getUrlVars()["FlowMax"];
 var HMax = getUrlVars()["HeadMax"];
 var QDP = getUrlVars()["Flow"];
 var HDP = getUrlVars()["Head"];
+var EDP = getUrlVars()["Eff"];
 var xTick
 var yTick
     
@@ -213,11 +225,13 @@ else{
         minY: 0,
         maxX: QMax,
         maxY: HMax,
+	xLabel: "Flow - m3/hr",
+	yLabel: "Head - m",
 	unitsPerTickX: xTick,
         unitsPerTickY: yTick
     });
     
-    var data = [{
+    var dataFlowHead = [{
         x: Q1,
         y: H1
     }, {
@@ -240,11 +254,11 @@ else{
         y: H7
     }];
     
-    myLineChart.drawLine(data, "blue", 3);
+    myLineChart.drawLine(dataFlowHead, "blue", 3);
 
     
     
-    var data = [{
+    var dataDuty = [{
         x: 0,
         y: HDP
     }, {
@@ -255,7 +269,59 @@ else{
         y: 0
     }];
     
-    myLineChart.drawLine(data, "red", 3);
+    myLineChart.drawLine(dataDuty, "red", 3);
+
+    var myEffLineChart = new LineChart({
+        canvasId: "myEffCanvas",
+        minX: 0,
+        minY: 0,
+        maxX: QMax,
+        maxY: 100,
+	xLabel: "Flow - m3/hr",
+	yLabel: "Eff - %",
+	unitsPerTickX: xTick,
+        unitsPerTickY: 10
+    });
+    
+    var dataEff = [{
+        x: Q1,
+        y: E1
+    }, {
+        x: Q2,
+        y: E2
+    }, {
+        x: Q3,
+        y: E3
+    }, {
+        x: Q4,
+        y: E4
+    }, {
+        x: Q5,
+        y: E5
+    }, {
+        x: Q6,
+        y: E6
+    }, {
+        x: Q7,
+        y: E7
+    }];
+    
+    myEffLineChart.drawLine(dataEff, "blue", 3);
+
+    
+    
+    var dataEffDuty = [{
+        x: 0,
+        y: EDP
+    }, {
+        x: QDP,
+        y: EDP
+    }, {
+        x: QDP,
+        y: 0
+    }];
+    
+    myEffLineChart.drawLine(dataEffDuty, "red", 3);
 };
 
 function getUrlVars() {
@@ -266,10 +332,20 @@ function getUrlVars() {
     return vars;
 }
         </script>
+
+<style>
+body, td {
+font: normal 80% verdana, arial, helvetica, sans-serif;
+color: black;
+}  
+</style>
     </head>
     <body>
 <center>
 <canvas id="myCanvas" width="600" height="290" style="border:1px solid black;">
+</canvas>
+<br>
+<canvas id="myEffCanvas" width="600" height="290" style="border:1px solid black;">
 </canvas>
 <br>
 <FORM><INPUT Type="button" VALUE="Back" onClick="history.go(-1);return true;"></FORM>   
