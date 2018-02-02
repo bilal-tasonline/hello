@@ -30,7 +30,7 @@ fileObject.createWriter(gotFileWriter, fail);
 }
             
 function gotFileWriter(writer) {
-var myText = document.getElementById('my_text').value;
+var myText = form.cRefNo.value;
 writer.write(myText);
 writer.onwriteend = function(evt) {
 $('#message').html('<p>File contents have been written.<br /><strong>File path:</strong> ' + fileObject.fullPath + '</p>');
@@ -658,10 +658,14 @@ color: black;
 	</tr>
 </table>
 <BR>
-<input type="button" name="Transbutton"  value="Transfer Data" onclick="TransData(this.form)">
+<input type="button" name="Transbutton" value="Transfer Data" onclick="TransData(this.form)">
+<BR>
+<input type="button" id="saveFile_btn" value="Save" />
+<div id="message"></div>
+<div id="contents"></div>
 </div>
 <BR><BR>
-<input type="button" name="button"  value="View Curve" onclick="loopLookup(this.form)">
+<input type="button" name="button" value="View Curve" onclick="loopLookup(this.form)">
 </center>
 </form>
 </body>
